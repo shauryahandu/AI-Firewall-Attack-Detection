@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# AutoGluon Models
+AutogluonModels/
+
+# Datasets
+raw/
+processed/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual Environments
+venv/
+.env
