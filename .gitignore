@@ -18,3 +18,39 @@ processed/
 # Virtual Environments
 venv/
 .env
+# Models
+*.cbm
+*.pkl
+*.joblib
+
+# Data
+*.parquet
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Models
+models/
+
+# Large datasets
+*.parquet
+*.pkl
+*.cbm
+*.joblib
+
+# AutoGluon
+AutogluonModels/
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
