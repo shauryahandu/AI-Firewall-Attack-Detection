@@ -53,4 +53,9 @@ __pycache__/
 *.pyc
 
 # Jupyter
-.ipynb_checkpoints/
+.ipynb_checkpoints/data/
+notebooks/
+*.parquet
+*.npy
+__pycache__/
+*.pyc
