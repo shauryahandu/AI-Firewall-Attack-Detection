@@ -1,61 +1,31 @@
 # Python
 __pycache__/
 *.pyc
-
-# AutoGluon Models
-AutogluonModels/
-
-# Datasets
-raw/
-processed/
-
-# VS Code
-.vscode/
-
-# Jupyter
 .ipynb_checkpoints/
-
-# Virtual Environments
-venv/
-.env
-# Models
-*.cbm
-*.pkl
-*.joblib
 
 # Data
-*.parquet
+data/
+archive/
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Python
-__pycache__/
-*.pyc
-
-# VS Code
-.vscode/
-
-# Models
-models/
-
-# Large datasets
-*.parquet
-*.pkl
-*.cbm
-*.joblib
-
-# AutoGluon
-AutogluonModels/
-
-# Python
-__pycache__/
-*.pyc
-
-# Jupyter
-.ipynb_checkpoints/data/
+# Research notebooks
 notebooks/
+
+# AutoGluon artifacts
+models/autogluon/
+
+# Large binary formats
 *.parquet
 *.npy
-__pycache__/
-*.pyc
+*.npz
+*.h5
+
+# Virtual environments
+venv/
+.venv/
+
+# VSCode
+.vscode/
+
+# Keep production models only
+!models/**/*.cbm
+!models/**/*.csv
