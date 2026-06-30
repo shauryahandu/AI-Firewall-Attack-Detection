@@ -29,3 +29,28 @@ venv/
 # Keep production models only
 !models/**/*.cbm
 !models/**/*.csv
+
+# =====================
+# DATASETS
+# =====================
+data/
+archive/
+
+# =====================
+# EXPERIMENTAL MODELS
+# =====================
+models/anomaly/
+models/autoencoder/
+models/autogluon/
+
+# =====================
+# NOTEBOOKS
+# =====================
+*.ipynb
+
+# =====================
+# PYTHON CACHE
+# =====================
+__pycache__/
+*.pyc
+
