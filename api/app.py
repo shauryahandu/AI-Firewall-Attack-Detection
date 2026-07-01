@@ -4,6 +4,7 @@
 
 from fastapi import FastAPI
 import pandas as pd
+import numpy as np
 
 from api.inference import (
     predict_single,
@@ -15,6 +16,7 @@ from api.schemas import (
     FlowRequest,
     BatchRequest
 )
+
 
 app = FastAPI(
 
@@ -65,8 +67,7 @@ def model_info():
 
         "version": "1.0.0",
 
-        "num_features":
-            len(FEATURE_NAMES),
+        "num_features": len(FEATURE_NAMES),
 
         "supported_attacks": [
 
@@ -83,7 +84,7 @@ def model_info():
 
 
 # ============================================================
-# SINGLE FLOW
+# SINGLE FLOW PREDICTION
 # ============================================================
 
 @app.post("/predict")
@@ -95,39 +96,51 @@ def predict(payload: FlowRequest):
 
 
 # ============================================================
-# BATCH FLOWS
+# BATCH FLOW PREDICTION
 # ============================================================
 
 @app.post("/batch-predict")
 def batch_predict(payload: BatchRequest):
 
     df = pd.DataFrame(
-        payload.flows
+        [flow.features for flow in payload.flows]
+    )
+
+    df.replace(
+        [np.inf, -np.inf],
+        0,
+        inplace=True
+    )
+
+    df.fillna(
+        0,
+        inplace=True
     )
 
     predictions = predict_batch(df)
 
-    return predictions.to_dict(
-        orient="records"
-    )
+    if isinstance(predictions, pd.DataFrame):
 
-@app.get("/demo-portscan")
-def demo_portscan():
+        predictions.replace(
+            [np.inf, -np.inf],
+            0,
+            inplace=True
+        )
 
-    sample = {
-        feature: 0
-        for feature in FEATURE_NAMES
-    }
+        predictions.fillna(
+            0,
+            inplace=True
+        )
 
-    sample["Destination Port"] = 22
-    sample["Flow Duration"] = 5000
-    sample["Total Fwd Packets"] = 500
-    sample["Flow Packets/s"] = 10000
+        return predictions.to_dict(
+            orient="records"
+        )
 
-    return predict_single(sample)
+    return predictions
+
 
 # ============================================================
-# DEMO ATTACK ENDPOINTS
+# DEMO: DDoS
 # ============================================================
 
 @app.get("/demo/ddos")
@@ -154,6 +167,10 @@ def demo_ddos():
     return predict_single(sample)
 
 
+# ============================================================
+# DEMO: PORTSCAN
+# ============================================================
+
 @app.get("/demo/portscan")
 def demo_portscan():
 
@@ -174,6 +191,10 @@ def demo_portscan():
 
     return predict_single(sample)
 
+
+# ============================================================
+# DEMO: BOT
+# ============================================================
 
 @app.get("/demo/bot")
 def demo_bot():

@@ -1,14 +1,10 @@
-# ============================================================
-# schemas.py
-# ============================================================
-
-from typing import Dict, List, Any
+from typing import Dict, List
 from pydantic import BaseModel
 
 
 class FlowRequest(BaseModel):
-    features: Dict[str, Any]
+    features: Dict[str, float]
 
 
 class BatchRequest(BaseModel):
-    flows: List[Dict[str, Any]]
+    flows: List[FlowRequest]
